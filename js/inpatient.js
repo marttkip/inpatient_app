@@ -25,6 +25,7 @@ function get_patient_card_items(visit_id)
 	 
 	
 	service.get_patient_card_details(visit_id).done(function (employees) {
+		
 		$( "#patient_card" ).html( employees );
 		$( "#loader-wrapper" ).addClass( "display_none" );
 		//console.log(employees);
