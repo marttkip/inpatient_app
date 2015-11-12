@@ -24,12 +24,13 @@ function get_patient_card_items(visit_id)
 	//get client's credentials
 	 
 	
-	service.get_patient_card_details(visit_id).done(function (employees) {
-		
-		$( "#patient_card" ).html( employees );
-		$( "#loader-wrapper" ).addClass( "display_none" );
+
+	service.get_patient_card_details(visit_id).done(function (employees) 
+	{
 		//console.log(employees);
-		//var data = jQuery.parseJSON(employees);
+		var data = jQuery.parseJSON(employees);
+		$( "#patient_card" ).html( data.result );
+		$( "#loader-wrapper" ).addClass( "display_none" );
 		
 		/*if(data.message == "success")
 		{
