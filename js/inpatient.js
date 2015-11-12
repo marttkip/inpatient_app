@@ -31,6 +31,7 @@ function get_patient_card_items(visit_id)
 	//get client's credentials
 	 
 	
+
 	service.get_patient_card_details(visit_id).done(function (employees) 
 	{
 		//console.log(employees);
