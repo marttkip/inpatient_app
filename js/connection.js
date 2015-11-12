@@ -1,3 +1,3 @@
-var base_url = 'http://localhost/erp/doctor/';
-var config_url = 'http://localhost/erp/';
+var config_url = 'http://192.168.9.105/';
+var base_url = config_url+'doctor/';
 // var base_url = 'http://159.203.78.242/mobile/';

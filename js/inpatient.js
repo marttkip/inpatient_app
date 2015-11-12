@@ -25,20 +25,22 @@ function get_patient_card_items(visit_id)
 	 
 	
 	service.get_patient_card_details(visit_id).done(function (employees) {
-		var data = jQuery.parseJSON(employees);
+		$( "#patient_card" ).html( employees );
+		$( "#loader-wrapper" ).addClass( "display_none" );
+		//console.log(employees);
+		//var data = jQuery.parseJSON(employees);
 		
-		if(data.message == "success")
+		/*if(data.message == "success")
 		{
 			// $( "#news-of-icpak" ).addClass( "display_block" );
-			$( "#patient_card" ).html( data.result );
-			$( "#loader-wrapper" ).addClass( "display_none" );
+			
 			// window.localStorage.setItem("patient_card", data.result);
 		}
 		
 		else
 		{
 
-		}
+		}*/
 	});
 }
 
