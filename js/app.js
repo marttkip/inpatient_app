@@ -41,13 +41,14 @@ var Login_service = function() {
     	var request = url + "reports/search_transactions/"+visit_type_id+"/"+personnel_id+"/"+visit_date_from+"/"+visit_date_to+"/"+branch_code;
 
         return $.ajax({url: request});
-    }
-   
-
-    
-
+	}
 }
 
+$(document).ready(function(){
+	tinymce.init({
+		selector: "#text_editor"
+	});
+})
 
 /* Function to check for network connectivity */
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -56,8 +57,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //
 function onDeviceReady() 
 {
-    
-    cordova.plugins.backgroundMode.setDefaults({ title:'ICPAK LIVE', text:'ICPAK LIVE', silent: true});
+    cordova.plugins.backgroundMode.setDefaults({ title:'Inpatients', text:'Inpatients', silent: true});
     
     //check if background action is enabled
     var enabled = cordova.plugins.backgroundMode.isEnabled();
@@ -82,8 +82,6 @@ function onDeviceReady()
                     });        
     };
 }
-
-
 
 //on page load if the user has logged in previously,
 //log them in automatically
@@ -114,9 +112,6 @@ function get_profile_details()
 		}
 	});
 }
-
-
-
 
 //Login member
 $(document).on("submit","form#login_member",function(e)
@@ -171,12 +166,6 @@ $(document).on("submit","form#login_member",function(e)
 	}
 	return false;
 });
-
-
-
-
-
-
 
 //get a logged in user's details
 function get_patient_list()
