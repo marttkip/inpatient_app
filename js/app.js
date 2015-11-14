@@ -13,7 +13,11 @@ var Login_service = function() {
     this.findById = function(id) {
         return $.ajax({url: url + "/" + id});
     }
-
+	
+	this.save_nurse_notes = function(date, time, signature, nurse_notes, visit_id) {
+		var request = url + "inpatient/save_nurse_notes/"+visit_id;
+        return $.ajax({type:'POST', url: request, data:{date: date, time: time, signature: signature, nurse_notes: nurse_notes}});
+    }
    
     this.login_member = function(personnel_username, personnel_password) {
 		var request = url + "inpatient/login_member";
