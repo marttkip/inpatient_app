@@ -2,6 +2,7 @@
 
 //log them in automatically
 $(document).ready(function(){
+	//localStorage.clear();
 	automatic_login();
 });
 

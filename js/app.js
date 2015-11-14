@@ -48,6 +48,7 @@ $(document).ready(function(){
 	tinymce.init({
 		selector: "#text_editor"
 	});
+	
 })
 
 /* Function to check for network connectivity */

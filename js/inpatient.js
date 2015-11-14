@@ -10,7 +10,14 @@ $(document).ready(function(){
 	get_patient_card_items(visit_id);
 	
 });
-
+var $canvas,
+onResize = function(event) {
+	
+  $canvas.attr({
+	height: window.innerHeight,
+	width: window.innerWidth
+  });
+};
 
 function get_patient_card_items(visit_id)
 {
@@ -29,20 +36,41 @@ function get_patient_card_items(visit_id)
 	{
 		//console.log(employees);
 		var data = jQuery.parseJSON(employees);
-		$( "#patient_card" ).html( data.result );
-		$( "#loader-wrapper" ).addClass( "display_none" );
 		
-		/*if(data.message == "success")
+		if(data.message == "success")
 		{
-			// $( "#news-of-icpak" ).addClass( "display_block" );
+			$( "#patient_card" ).html( data.result );
+			$( "#loader-wrapper" ).addClass( "display_none" );
+			tinymce.init({
+                selector: ".cleditor"
+            });
+			//$('.sigPad').signaturePad();
+			$canvas = $('canvas');
+			/*window.addEventListener('orientationchange', onResize, false);
+			window.addEventListener('resize', onResize, false);
+			onResize();*/
 			
-			// window.localStorage.setItem("patient_card", data.result);
+			$('.sigPad').signaturePad({
+				drawOnly: true,
+				defaultAction: 'drawIt',
+				validateFields: false,
+				lineWidth: 0,
+				output: null,
+				sigNav: null,
+				name: null,
+				typed: null,
+				clear: 'a#clear',
+				typeIt: null,
+				drawIt: null,
+				typeItDesc: null,
+				drawItDesc: null
+			});
 		}
 		
 		else
 		{
 
-		}*/
+		}
 	});
 }
 
