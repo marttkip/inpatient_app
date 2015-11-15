@@ -14,8 +14,18 @@ var Login_service = function() {
         return $.ajax({url: url + "/" + id});
     }
 	
-	this.save_nurse_notes = function(date, time, signature, nurse_notes, visit_id) {
-		var request = url + "inpatient/save_nurse_notes/"+visit_id;
+	this.edit_nurse_notes = function(date, time, nurse_notes, visit_id, personnel_id, notes_id) {
+		var request = url + "inpatient/edit_nurse_notes/"+visit_id+"/"+personnel_id+"/"+notes_id;
+        return $.ajax({type:'POST', url: request, data:{date: date, time: time, nurse_notes: nurse_notes}});
+    }
+	
+	this.delete_nurse_notes = function(visit_id, personnel_id, notes_id) {
+		var request = url + "inpatient/delete_nurse_notes/"+visit_id+"/"+personnel_id+"/"+notes_id;
+        return $.ajax({type:'POST', url: request});
+    }
+	
+	this.save_nurse_notes = function(date, time, signature, nurse_notes, visit_id, personnel_id) {
+		var request = url + "inpatient/save_nurse_notes/"+visit_id+"/"+personnel_id;
         return $.ajax({type:'POST', url: request, data:{date: date, time: time, signature: signature, nurse_notes: nurse_notes}});
     }
    
@@ -36,8 +46,8 @@ var Login_service = function() {
     	var request = url + "inpatient/get_inpatient_list";
         return $.ajax({url: request});
     }
-    this.get_patient_card_details = function(visit_id){
-    	var request = url + "inpatient/get_inpatient_card/"+visit_id+"/a/1";
+    this.get_patient_card_details = function(visit_id, personnel_id){
+    	var request = url + "inpatient/get_inpatient_card/"+visit_id+"/a/1/"+personnel_id;
         return $.ajax({url: request});
     }
     
@@ -144,13 +154,11 @@ $(document).on("submit","form#login_member",function(e)
 			
 			if(data.message == "success")
 			{
-				//display login items
-				service.get_member_details(username).done(function (employees) {
-				var data_two = jQuery.parseJSON(employees);
-				var first_name = data_two.member_first_name;
-				$( "#user_logged_in" ).html( '<h4>Welcome back '+first_name+'</h4>' );
-				});
+				var first_name = data.result.personnel_fname;
+				var personnel_id = data.result.personnel_id;
 				
+				window.localStorage.setItem("personnel_fname", first_name);
+				window.localStorage.setItem("personnel_id", personnel_id);
 				window.localStorage.setItem("personnel_username", username);
 				window.localStorage.setItem("personnel_password", password);
 				window.location.href = "home.html";
@@ -172,9 +180,18 @@ $(document).on("submit","form#login_member",function(e)
 	return false;
 });
 
+function logout()
+{
+	localStorage.clear();
+	window.location.href = "index.html";
+}
+
 //get a logged in user's details
 function get_patient_list()
 {
+	var first_name = window.localStorage.getItem("personnel_fname");
+	$( ".header-right span.name" ).html( 'Welcome '+first_name);
+	
 	var service = new Login_service();
 	service.initialize().done(function () {
 		console.log("Service initialized");

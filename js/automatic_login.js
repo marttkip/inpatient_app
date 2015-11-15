@@ -26,13 +26,16 @@ function automatic_login()
 		
 		if(data.message == "success")
 		{
-			//display login items
-			service.get_member_details(username).done(function (employees) {
-			var data_two = jQuery.parseJSON(employees);
-			var first_name = data_two.member_first_name;
-			$( "#user_logged_in" ).html( '<h4>Welcome back '+first_name+'</h4>' );
-			});
-			window.location.href = "home.html";
+			console.log(data.result);
+			var first_name = data.result.personnel_fname;
+			var personnel_id = data.result.personnel_id;
+			$( "span.name" ).html( 'Welcome '+first_name);
+			
+			window.localStorage.setItem("personnel_fname", first_name);
+			window.localStorage.setItem("personnel_id", personnel_id);
+			window.localStorage.setItem("personnel_username", username);
+			window.localStorage.setItem("personnel_password", password);
+			//window.location.href = "home.html";
 		}
 		else
 		{
